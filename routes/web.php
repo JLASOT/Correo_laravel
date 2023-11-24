@@ -16,14 +16,17 @@ use App\Mail\EnviarCorreo;
 */
 
 Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/Correo', function () {
     return view('home');
 })->name('home');
 
 Route::post('enviar_correo', function () {
     //return request()->all();
-    /* para poder visualizar como se va a enviar el correo sin q se envie
-    return new EnviarCorreo(request()->mensaje, request()->adjunto);
-    */
+    /* para poder visualizar como se va a enviar el correo sin q se envie*/
+    // return new EnviarCorreo(request()->mensaje, request()->adjunto);
     Mail::to(request()->destinatario)->send(new EnviarCorreo(request()->mensaje, request()->adjunto));
     return redirect()->route('home')->with('success', 'correo enviado exitosamente');
 })->name('enviar-correo');
